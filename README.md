@@ -16,25 +16,31 @@ Newly scrapped information will be chosen if there is an overlap in the existing
 
 ## Details:
 
+### indico api
 indico api reference can be found at https://indico.readthedocs.io/en/v1.9/http_api/access/
 
+### indico token
 Indico api requires an indico token string (argument: `indico_token`).  
 Make token string by going to indico's "My profile -> Settings -> API tokens" and pressing "Create new token".  
 Check "Classic API (read only)" in Scopes and then "Save".  
 The token string should be shown on the indico website.  
 Example usage: `--indico_token indp_xxxxxx`  
 
+### indico category id
 The indico category id (argument: `category_id`) can be found by looking at the url of indico.  
 Example: category id is 20 for the following URL: `https://indico.xxxx.xx/category/20`
 
+### event title
 The search for event titles (argument: `event_titles`) is done using regex, where uppercase and lowercase are ignored.  
 Example regex usage: `--event_titles SUSY.*Meeting`
 
+### start date and end date
 The start date (argument: `from_time`) and end date (argument: `to_time`) to search for events in categories uses the format specified in "param from/to" in https://indico.readthedocs.io/en/v1.9/http_api/common/  
 Example date formats: YYYY-MM-DD, -14d, today.  
 Note when entering negative days as arugment use "=".  
 Example usage: `--from_time=-14d`  
 
+### output json file
 The json filename will be from the specified event title which slugified to a filename-friendly filename.
 
 The json format is shown below, which is a list of event information  
