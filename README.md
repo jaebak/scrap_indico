@@ -4,7 +4,7 @@ Requirements: python3, indico token
 
 # About `collect_indico_links.py`
 
-Example usage: `collect_indico_links.py --indico_token indp_xxx --category_id 999 --event_titles "Inclusive meeting" "Leptonic meeting" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch`
+Example usage: `collect_indico_links.py --indico_token indp_xxxxxx --category_id 999 --event_titles "Inclusive meeting" "Leptonic meeting" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch`
 
 Scraps indico using indico api and saves information into json files.
 
