@@ -172,7 +172,7 @@ The json format is shown below, which is a list of event information
   parser.add_argument('-c', '--category_id', required=True, help="Indico's category id. Events in the category will be search.")
   parser.add_argument('-e', '--event_titles', required=True, nargs="+", help="Event's title to be search for using regex")
   parser.add_argument('-o', '--output_directory', required=True, help="Output directory for json files")
-  parser.add_argument('-u', '--url_for_indico', default='https://indico.cern.ch', help="URL for indico. Default is https://indico.cern.ch")
+  parser.add_argument('-u', '--indico_url', default='https://indico.cern.ch', help="URL for indico. Default is https://indico.cern.ch")
   parser.add_argument('-f', '--from_time', default="-30d", help="Event search start date. Default is -30d.")
   parser.add_argument('-t', '--to_time', default="today", help="Event search end date. Default is today.")
   args = parser.parse_args()
@@ -185,7 +185,7 @@ The json format is shown below, which is a list of event information
   from_time = args.from_time
   to_time = args.to_time
   data_folder = args.output_directory
-  indico_url = args.url_for_indico
+  indico_url = args.indico_url
 
   if not os.path.exists(data_folder):
     os.makedirs(data_folder)
