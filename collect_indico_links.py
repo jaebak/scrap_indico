@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+
+"""
+Description: Scraps indico using indico api and saves information into json files.
+   Code URL: https://github.com/jaebak/scrap_indico
+     Author: Jaebak Kim
+    Contact: fusionhep@gmail.com
+"""
+
 import requests
 import json
 import os
