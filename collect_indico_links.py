@@ -9,7 +9,7 @@ import unicodedata
 import re
 
 def get_event_json(event_id, token):
-  url = 'https://indico.cern.ch/export/timetable/'+str(event_id)+'.json'
+  url = indico_url+'/export/timetable/'+str(event_id)+'.json'
   response = requests.get(url, headers={'Authorization': 'Bearer '+token})
   return response.json()
 
@@ -24,9 +24,8 @@ def get_presentations(timetable_json, presentations):
       get_presentations(timetable_json[key], presentations)
     
 def get_category_json(category_id, token, from_time='-7d', to_time='today', tz='Europe/Zurich'):
-  url = 'https://indico.cern.ch/export/categ/'+str(category_id)+'.json?from='+from_time+'&to='+to_time+'&tz='+tz
+  url = indico_url+'/export/categ/'+str(category_id)+'.json?from='+from_time+'&to='+to_time+'&tz='+tz
   #print(url)
-  #url = 'https://indico.cern.ch/export/categ/'+str(category_id)+'.json?&tz='+tz
   response = requests.get(url, headers={'Authorization': 'Bearer '+token})
   return response.json()
 
@@ -74,7 +73,7 @@ def get_attachment_string(presentation):
   attachment_string = ''
   for attachment in presentation['attachments']['files']:
     if attachment_string != '': attachment_string += ', '
-    attachment_string += attachment['title']+' [https://indico.cern.ch'+attachment['download_url']+']'
+    attachment_string += attachment['title']+' ['+indico_url+attachment['download_url']+']'
   return attachment_string
 
 # returns [(title, url)]
@@ -83,7 +82,7 @@ def get_attachment_list(presentation):
     return []
   attachments = []
   for attachment in presentation['attachments']['files']:
-    attachments.append([attachment['title'],'https://indico.cern.ch'+attachment['download_url']])
+    attachments.append([attachment['title'],indico_url+attachment['download_url']])
   return attachments
 
 def print_events(events):
@@ -172,9 +171,10 @@ The json format is shown below, which is a list of event information
   parser.add_argument('-k', '--indico_token', required=True, help="Indico's token string")
   parser.add_argument('-c', '--category_id', required=True, help="Indico's category id. Events in the category will be search.")
   parser.add_argument('-e', '--event_titles', required=True, nargs="+", help="Event's title to be search for using regex")
+  parser.add_argument('-o', '--output_directory', required=True, help="Output directory for json files")
+  parser.add_argument('-u', '--url_for_indico', default='https://indico.cern.ch', help="URL for indico. Default is https://indico.cern.ch")
   parser.add_argument('-f', '--from_time', default="-30d", help="Event search start date. Default is -30d.")
   parser.add_argument('-t', '--to_time', default="today", help="Event search end date. Default is today.")
-  parser.add_argument('-o', '--output_directory', required=True, help="Output directory for json files")
   args = parser.parse_args()
 
   # Setting
@@ -185,6 +185,7 @@ The json format is shown below, which is a list of event information
   from_time = args.from_time
   to_time = args.to_time
   data_folder = args.output_directory
+  indico_url = args.url_for_indico
 
   if not os.path.exists(data_folder):
     os.makedirs(data_folder)
