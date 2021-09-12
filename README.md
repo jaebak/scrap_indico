@@ -1,7 +1,7 @@
 Scripts to collect links from indico and write collected links to twiki.
 
 Requirements for `collect_indico_links.py`: python3, indico token (described at [indico token](#indico_token))  
-Requirements for `write_to_twiki.py`: python3, `cern_sso.py` (described at [downloading cern sso](#cern_sso))  
+Requirements for `write_to_twiki.py`: python3, `cern_sso.py` (described at [downloading cern sso](#cern_sso)), certificate and key to login to tiwki (described at [generating certificate and key](#cert_key)) 
 Required python libraries: `six`, `requests`
 
 Example usage: `collect_indico_links.py --indico_token indp_xxxxxx --category_id 999 --event_titles "Inclusive weekly" "Leptonic weekly" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch`
@@ -64,7 +64,7 @@ Download `cern_sso.py` from https://github.com/cerndb/cern-sso-python with below
 
 `wget https://raw.githubusercontent.com/cerndb/cern-sso-python/master/cern_sso.py`
 
-### Generating certificate and key for `cern_sso.py`
+### <a name="cert_key"></a>Generating certificate and key for `cern_sso.py`
 
 This script uses `cern_sso.py` (https://github.com/cerndb/cern-sso-python) to log into CERN twiki,  
 where `cern_sso.py` requires a SSL certifiate and an unencrypted key for authentication.  
