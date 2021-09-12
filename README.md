@@ -1,4 +1,4 @@
-Scripts to collect links from indico [`collect_indico_links.py`](#collect_indico_links) and write collected links to twiki [`write_to_twiki.py`](#write_to_twiki)].
+Scripts to collect links from indico ([`collect_indico_links.py`](#collect_indico_links)) and write collected links to twiki ([`write_to_twiki.py`](#write_to_twiki)).
 
 Requirements for `collect_indico_links.py`: python3, indico token (described at [indico token](#indico_token))  
 Requirements for `write_to_twiki.py`: python3, `cern_sso.py` (described at [downloading cern sso](#cern_sso)), certificate and key to login to tiwki (described at [generating certificate and key](#cert_key))  
