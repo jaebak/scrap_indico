@@ -1,11 +1,11 @@
 Scripts to collect links from indico and write collected links to twiki.
 
-Requirements for `collect_indico_links.py`: python3, indico token (described at [indico token](#indico-token))  
-Requirements for `write_to_twiki.py`: python3, `cern_sso.py` (described at [cern sso](#cern_sso))
+Requirements for `collect_indico_links.py`: python3, indico token (described at [indico token](#indico_token))  
+Requirements for `write_to_twiki.py`: python3, `cern_sso.py` (described at [downloading cern sso](#cern_sso))
+Required python libraries: `six`, `requests`
 
-Example usage: `collect_indico_links.py --indico_token indp_xxxxxx --category_id 999 --event_titles "Inclusive meeting" "Leptonic meeting" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch`
-
-Example usage: `write_to_twiki.py --cert_filename xxx.pem --key_filename xxx.key --parent_topic YYY --output_twiki_url "https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE" --json_filenames jsons/meeting_zzz.json --titles_for_jsons "Arbitrary Meetings"`
+Example usage: `collect_indico_links.py --indico_token indp_xxxxxx --category_id 999 --event_titles "Inclusive weekly" "Leptonic weekly" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch`
+Example usage: `write_to_twiki.py --cert_filename xxx.pem --key_filename xxx.key --parent_topic YYY --output_twiki_url "https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE" --json_filenames jsons/meeting_inclusive_weekly.json jsons/meeting_leptonic_weekly.json --titles_for_jsons "Arbitrary Meetings"`
 
 # About `collect_indico_links.py`
 
@@ -35,7 +35,7 @@ Example: category id is 20 for the following URL: `https://indico.xxxx.xx/catego
 
 ### event title
 The search for event titles (argument: `event_titles`) is done using regex, where uppercase and lowercase are ignored.  
-Example regex usage: `--event_titles SUSY.*Meeting`
+Example regex usage: `--event_titles SUSY.*Weekly`
 
 ### start date and end date
 The start date (argument: `from_time`) and end date (argument: `to_time`) to search for events in categories uses the format specified in "param from/to" in https://indico.readthedocs.io/en/v1.9/http_api/common/  
@@ -44,7 +44,8 @@ Note when entering negative days as arugment use "=".
 Example usage: `--from_time=-14d`  
 
 ### output json file
-The json filename will be from the specified event title which slugified to a filename-friendly filename.
+The json filename will be from the specified event title which is slugified to a filename-friendly filename and made to undercase, with a prefix `meeting_`
+Example: `--event_titles SUSY.*Weekly` will make a json file called `meeting_susy_weekly.json`
 
 The json format is shown below, which is a list of event information  
 `[ { 'date', 'url', 'title', 'presentations': [{'title', presenters:['presenter'], 'attachments': [('title', 'url')]}] } ]`
@@ -53,14 +54,16 @@ The json format is shown below, which is a list of event information
 
 Uses scrapped indico json files to write list of meetings and presentations to a target twiki page.
 
-##  <a name="cern_sso"></a>About `cern_sso.py`
+## Details: 
+
+### <a name="cern_sso"></a>Downloading `cern_sso.py`
 
 `cern_sso.py` is used to login to twiki.  
 Download `cern_sso.py` from https://github.com/cerndb/cern-sso-python with below command.  
 
 `wget https://raw.githubusercontent.com/cerndb/cern-sso-python/master/cern_sso.py`
 
-## Details: 
+### Generating certificate and key for `cern_sso.py`
 
 This script uses `cern_sso.py` (https://github.com/cerndb/cern-sso-python) to log into CERN twiki,  
 where `cern_sso.py` requires a SSL certifiate and an unencrypted key for authentication.  
@@ -76,12 +79,19 @@ Note, because the key is unencrypted, please make sure that the files are in a s
 3. Create an unencrypted key from `myCert.tmp.key`  
 `openssl rsa -in myCert.tmp.key -out myCert.key`  
 
+### Writing to twiki
+
 To write to the twiki, https://twiki.cern.ch/twiki/bin/view/TWiki/TWikiScripts#save is used,  
 where a http POST method is used.
 
-Each twiki page has a topic parent, where if set to 'none' there will be no parent topic.
+### topic parent
 
-The output twiki url is expected to have the following format,  
+Each twiki page has a topic parent (argument: `parent_topic`), where if set to 'none' there will be no parent topic.  
+https://twiki.cern.ch/twiki/bin/view/TWiki/TWikiScripts#save has more information.
+
+### output twiki page
+
+The output twiki url (argument: `output_twiki_url`) is expected to have the following format,  
 https://twiki.cern.ch/twiki/bin/view/PATH/TO_PAGE or https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE  
 where to write to the twiki page, `view` or `viewauth` will be replaced with `save`.  
 
