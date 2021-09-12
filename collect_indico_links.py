@@ -5,6 +5,7 @@ Description: Scraps indico using indico api and saves information into json file
    Code URL: https://github.com/jaebak/scrap_indico
      Author: Jaebak Kim
     Contact: fusionhep@gmail.com
+       Date: 2021.09.13
 """
 
 import requests
@@ -149,6 +150,8 @@ For each event, each talk's tiles, presentors, and attachment links are scrapped
 The scrapped information is saved into a meeting_xxx.json file, where there will be different files for each specified event title.
 If the meeting_xxx.json file exists, the newly scrapped information is combined into the file.
 Newly scrapped information will be chosen if there is an overlap in the existing meeting_xxx.json file.
+
+Example command: collect_indico_links.py --indico_token indp_xxxxxx --category_id 999 --event_titles "Inclusive meeting" "Leptonic meeting" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch
 
 Details:
 
