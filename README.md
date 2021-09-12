@@ -52,7 +52,7 @@ The json format is shown below, which is a list of event information
 
 # About `write_to_twiki.py`
 
-Uses scrapped indico json files to write list of meetings and presentations to a target twiki page.
+Uses scrapped indico json files to write list of meetings and presentations to a target twiki page.  
 The twiki page will have a list of meetings for each scrapped indico json file.  
 
 ## Details: 
