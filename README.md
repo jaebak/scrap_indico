@@ -1,11 +1,13 @@
 Scripts to collect links from indico and write collected links to twiki.
 
-Requirements for `collect_indico_links.py`: python3, indico token (described at [indico token](#indico_token))
+Requirements for `collect_indico_links.py`: python3, indico token (described at [indico token](#indico_token))  
 Requirements for `write_to_twiki.py`: python3, `cern_sso.py` (described at [cern sso](#cern_sso))
 
-# About `collect_indico_links.py`
-
 Example usage: `collect_indico_links.py --indico_token indp_xxxxxx --category_id 999 --event_titles "Inclusive meeting" "Leptonic meeting" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch`
+
+Example usage: `write_to_twiki.py --cert_filename xxx.pem --key_filename xxx.key --parent_topic YYY --output_twiki_url "https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE" --json_filenames jsons/meeting_zzz.json --titles_for_jsons "Arbitrary Meetings"`
+
+# About `collect_indico_links.py`
 
 Scraps indico using indico api and saves information into json files.
 
@@ -20,7 +22,7 @@ Newly scrapped information will be chosen if there is an overlap in the existing
 ### indico api
 indico api reference can be found at https://indico.readthedocs.io/en/v1.9/http_api/access/
 
-### indico token <a name="indico_token"></a>
+### <a name="indico_token"></a>indico token 
 Indico api requires an indico token string (argument: `indico_token`).  
 Make token string by going to indico's "My profile -> Settings -> API tokens" and pressing "Create new token".  
 Check "Classic API (read only)" in Scopes and then "Save".  
@@ -51,9 +53,7 @@ The json format is shown below, which is a list of event information
 
 Uses scrapped indico json files to write list of meetings and presentations to a target twiki page.
 
-Example usage: `write_to_twiki.py --cert_filename xxx.pem --key_filename xxx.key --parent_topic YYY --output_twiki_url "https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE" --json_filenames jsons/meeting_zzz.json --titles_for_jsons "Arbitrary Meetings"`
-
-## About `cern_sso.py` <a name="cern_sso"></a>
+##  <a name="cern_sso"></a>About `cern_sso.py`
 
 `cern_sso.py` is used to login to twiki.  
 Download `cern_sso.py` from https://github.com/cerndb/cern-sso-python with below command.  
@@ -85,6 +85,6 @@ The output twiki url is expected to have the following format,
 https://twiki.cern.ch/twiki/bin/view/PATH/TO_PAGE or https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE  
 where to write to the twiki page, `view` or `viewauth` will be replaced with `save`.  
 
-The twiki page will have a list of meetings for each scrapped indico json file.
-There will be a title (argument: `titles_for_jsons`) in the twiki page for each scrapped indico json file.
+The twiki page will have a list of meetings for each scrapped indico json file.  
+There will be a title (argument: `titles_for_jsons`) in the twiki page for each scrapped indico json file.  
 Therefore the number of (argument: `json_filenames`) and (argument: `titles_for_jsons`) needs to be the same.
