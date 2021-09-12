@@ -1,4 +1,4 @@
-Scripts to collect links from indico and write collected links to twiki.
+Scripts to collect links from indico [`collect_indico_links.py`](#collect_indico_links) and write collected links to twiki [`write_to_twiki.py`](#write_to_twiki)].
 
 Requirements for `collect_indico_links.py`: python3, indico token (described at [indico token](#indico_token))  
 Requirements for `write_to_twiki.py`: python3, `cern_sso.py` (described at [downloading cern sso](#cern_sso)), certificate and key to login to tiwki (described at [generating certificate and key](#cert_key))  
@@ -10,7 +10,7 @@ Example usage:
 
 `write_to_twiki.py --cert_filename xxx.pem --key_filename xxx.key --parent_topic YYY --output_twiki_url "https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE" --json_filenames jsons/meeting_inclusive_weekly.json jsons/meeting_leptonic_weekly.json --titles_for_jsons "Inclusive Meetings" "Leptonic Meetings"`
 
-# About `collect_indico_links.py`
+# <a name="collect_indico_links"></a>About `collect_indico_links.py`
 
 Scraps indico using indico api and saves information into json files.
 
@@ -53,7 +53,7 @@ Example: `--event_titles SUSY.*Weekly` will make a json file called `meeting_sus
 The json format is shown below, which is a list of event information  
 `[ { 'date', 'url', 'title', 'presentations': [{'title', presenters:['presenter'], 'attachments': [('title', 'url')]}] } ]`
 
-# About `write_to_twiki.py`
+# <a name="write_to_twiki"></a>About `write_to_twiki.py`
 
 Uses scrapped indico json files to write list of meetings and presentations to a target twiki page.  
 The twiki page will have a list of meetings for each scrapped indico json file.  
