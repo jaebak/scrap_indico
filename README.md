@@ -4,8 +4,11 @@ Requirements for `collect_indico_links.py`: python3, indico token (described at 
 Requirements for `write_to_twiki.py`: python3, `cern_sso.py` (described at [downloading cern sso](#cern_sso)), certificate and key to login to tiwki (described at [generating certificate and key](#cert_key))  
 Required python libraries: `six`, `requests`
 
-Example usage: `collect_indico_links.py --indico_token indp_xxxxxx --category_id 999 --event_titles "Inclusive weekly" "Leptonic weekly" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch`
-Example usage: `write_to_twiki.py --cert_filename xxx.pem --key_filename xxx.key --parent_topic YYY --output_twiki_url "https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE" --json_filenames jsons/meeting_inclusive_weekly.json jsons/meeting_leptonic_weekly.json --titles_for_jsons "Arbitrary Meetings"`
+Example usage: 
+
+`collect_indico_links.py --indico_token indp_xxxxxx --category_id 999 --event_titles "Inclusive weekly" "Leptonic weekly" --from_time=2021-01-01 --to_time today --output_directory jsons --indico_url https://indico.cern.ch`
+
+`write_to_twiki.py --cert_filename xxx.pem --key_filename xxx.key --parent_topic YYY --output_twiki_url "https://twiki.cern.ch/twiki/bin/viewauth/PATH/TO_PAGE" --json_filenames jsons/meeting_inclusive_weekly.json jsons/meeting_leptonic_weekly.json --titles_for_jsons "Arbitrary Meetings"`
 
 # About `collect_indico_links.py`
 
